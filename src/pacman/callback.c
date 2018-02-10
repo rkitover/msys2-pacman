@@ -467,7 +467,7 @@ void cb_question(void *ctx, alpm_question_t *question)
 				/* print conflict only if it contains new information */
 				if(strcmp(alpm_pkg_get_name(q->conflict->package1), q->conflict->reason->name) == 0
 						|| strcmp(alpm_pkg_get_name(q->conflict->package2), q->conflict->reason->name) == 0) {
-					q->remove = noyes(_("%s-%s%s%s and %s-%s%s%s are in conflict. Remove %s?"),
+					q->remove = yesno(_("%s-%s%s%s and %s-%s%s%s are in conflict. Remove %s?"),
 							alpm_pkg_get_name(q->conflict->package1),
 							colstr->faint,
 							alpm_pkg_get_version(q->conflict->package1),
@@ -478,7 +478,7 @@ void cb_question(void *ctx, alpm_question_t *question)
 							colstr->nocolor,
 							alpm_pkg_get_name(q->conflict->package2));
 				} else {
-					q->remove = noyes(_("%s-%s%s%s and %s-%s%s%s are in conflict (%s). Remove %s?"),
+					q->remove = yesno(_("%s-%s%s%s and %s-%s%s%s are in conflict (%s). Remove %s?"),
 							alpm_pkg_get_name(q->conflict->package1),
 							colstr->faint,
 							alpm_pkg_get_version(q->conflict->package1),
@@ -508,7 +508,7 @@ void cb_question(void *ctx, alpm_question_t *question)
 							count));
 				list_display("     ", namelist, getcols());
 				printf("\n");
-				q->skip = noyes(_n(
+				q->skip = yesno(_n(
 							"Do you want to skip the above package for this upgrade?",
 							"Do you want to skip the above packages for this upgrade?",
 							count));
