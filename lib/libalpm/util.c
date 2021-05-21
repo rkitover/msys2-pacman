@@ -794,6 +794,7 @@ cleanup:
 	return retval;
 }
 
+#ifndef __MSYS__
 /** Run ldconfig in a chroot.
  * @param handle the context handle
  * @return 0 on success, 1 on error
@@ -817,6 +818,7 @@ int _alpm_ldconfig(alpm_handle_t *handle)
 
 	return 0;
 }
+#endif
 
 /** Helper function for comparing strings using the alpm "compare func"
  * signature.

@@ -80,9 +80,6 @@ pacman_tests = [
   'tests/ignore006.py',
   'tests/ignore007.py',
   'tests/ignore008.py',
-  'tests/ldconfig001.py',
-  'tests/ldconfig002.py',
-  'tests/ldconfig003.py',
   'tests/mode001.py',
   'tests/mode002.py',
   'tests/mode003.py',
@@ -359,7 +356,6 @@ foreach input : pacman_tests
     join_paths(meson.current_source_dir(), 'pactest.py'),
     '--scriptlet-shell', get_option('scriptlet-shell'),
     '--bindir', meson.project_build_root(),
-    '--ldconfig', LDCONFIG,
     '--verbose',
     join_paths(meson.current_source_dir(), input)
   ]
