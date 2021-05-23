@@ -42,5 +42,5 @@ prepare_buildenv() {
 	done
 
 	# ensure all necessary build variables are exported
-	export ${buildenv_vars[@]}
+	export ${buildenv_vars[@]} CC CXX
 }
