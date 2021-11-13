@@ -35,5 +35,9 @@ buildenv_lto() {
 		append_once CFLAGS "${LTOFLAGS:--flto}"
 		append_once CXXFLAGS "${LTOFLAGS:--flto}"
 		append_once LDFLAGS "${LTOFLAGS:--flto}"
+		if check_option "staticlibs" "y"; then
+			append_once CFLAGS "-ffat-lto-objects"
+			append_once CXXFLAGS "-ffat-lto-objects"
+		fi
 	fi
 }
