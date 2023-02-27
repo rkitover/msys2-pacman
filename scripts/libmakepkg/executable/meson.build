@@ -4,7 +4,6 @@ sources = [
   'ccache.sh.in',
   'checksum.sh.in',
   'distcc.sh.in',
-  'debugedit.sh.in',
   'gpg.sh.in',
   'gzip.sh.in',
   'pacman.sh.in',
