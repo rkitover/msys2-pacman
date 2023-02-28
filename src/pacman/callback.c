@@ -152,8 +152,11 @@ static int64_t get_update_timediff(int first_call)
 /* refactored from cb_trans_progress */
 static void fill_progress(const int percent, const int proglen)
 {
-	/* 8 = 1 space + 1 [ + 1 ] + 5 for percent */
-	const int hashlen = proglen > 8 ? proglen - 8 : 0;
+	/* 9 = 1 space + 1 [ + 1 ] + 5 for percent + 1 blank */
+	/* Without the single blank at the end, carriage return wouldn't
+	 * work properly on most windows terminals.
+	 */
+	const int hashlen = proglen > 9 ? proglen - 9 : 0;
 	const int hash = percent * hashlen / 100;
 	int i;
 
