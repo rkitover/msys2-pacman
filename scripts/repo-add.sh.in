@@ -49,6 +49,7 @@ DB_MODIFIED=0
 source "$MAKEPKG_LIBRARY"/util/compress.sh
 source "$MAKEPKG_LIBRARY"/util/message.sh
 source "$MAKEPKG_LIBRARY"/util/parseopts.sh
+source "$MAKEPKG_LIBRARY"/utils_fixed_path.sh
 
 # ensure we have a sane umask set
 umask 0022
@@ -566,9 +567,13 @@ clean_up() {
 # PROGRAM START
 
 # determine whether we have gettext; make it a no-op if we do not
-if ! type gettext &>/dev/null; then
+if ! type -p gettext &>/dev/null; then
 	gettext() {
-		echo "$@"
+		printf "%s\n" "$@"
+	}
+else
+	gettext() {
+		/usr/bin/gettext "$@"
 	}
 fi
 
