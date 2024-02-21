@@ -44,6 +44,7 @@ USE_COLOR='y'
 PREVENT_DOWNGRADE=0
 INCLUDE_SIGS=0
 DB_MODIFIED=0
+DB_MISSING=0
 
 # Import libmakepkg
 source "$MAKEPKG_LIBRARY"/util/compress.sh
@@ -440,6 +441,8 @@ prepare_repo_db() {
 						exit 1
 					fi
 					rm -f "$dbfile"
+					# mark the db for unconditional update
+					DB_MISSING=1
 					;;
 			esac
 		fi
@@ -710,7 +713,7 @@ if (( fail )); then
 	exit 1
 fi
 
-if (( DB_MODIFIED )); then
+if (( DB_MODIFIED || DB_MISSING )); then
 	msg "$(gettext "Creating updated database file '%s'")" "$REPO_DB_FILE"
 	create_db
 	rotate_db
