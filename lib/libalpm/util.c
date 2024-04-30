@@ -306,23 +306,6 @@ int _alpm_unpack_single(alpm_handle_t *handle, const char *archive,
 	return ret;
 }
 
-char *get_command_line(const char* cmd, char *const argv[])
-{
-    size_t len = strlen(cmd) + 1;
-    size_t nargs = 0;
-    while (argv[nargs] != NULL) {
-        len += strlen(argv[nargs++]) + 1;
-    }
-    char *result = malloc(len) + 1;
-    strcpy(result, cmd);
-    strcat(result, " ");
-    for (size_t arg = 0; arg < nargs; ++arg) {
-        strcat(result, argv[arg]);
-        strcat(result, " ");
-    }
-    return result;
-}
-
 /** Unpack a list of files in an archive.
  * @param handle the context handle
  * @param path the archive to unpack
@@ -706,7 +689,7 @@ int _alpm_run_chroot(alpm_handle_t *handle, const char *cmd, char *const argv[],
 		_alpm_reset_signals();
 		execv(cmd, argv);
 		/* execv only returns if there was an error */
-		fprintf(stderr, _("call to execv (%s) failed (%s)\n"), get_command_line(cmd, argv), strerror(errno));
+		fprintf(stderr, _("call to execv failed (%s)\n"), strerror(errno));
 		exit(1);
 	} else {
 		/* this code runs for the parent only (wait on the child) */
@@ -795,7 +778,7 @@ int _alpm_run_chroot(alpm_handle_t *handle, const char *cmd, char *const argv[],
 		if(WIFEXITED(status)) {
 			_alpm_log(handle, ALPM_LOG_DEBUG, "call to waitpid succeeded\n");
 			if(WEXITSTATUS(status) != 0) {
-				_alpm_log(handle, ALPM_LOG_ERROR, _("command (%s) failed to execute correctly\n"), get_command_line(cmd, argv));
+				_alpm_log(handle, ALPM_LOG_ERROR, _("command failed to execute correctly\n"));
 				retval = 1;
 			}
 		} else if(WIFSIGNALED(status) != 0) {
