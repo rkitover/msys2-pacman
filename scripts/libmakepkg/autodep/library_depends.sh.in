@@ -23,7 +23,7 @@ LIBMAKEPKG_AUTODEP_LIBRARY_DEPENDS_SH=1
 
 MAKEPKG_LIBRARY=${MAKEPKG_LIBRARY:-'@libmakepkgdir@'}
 
-autodep_functions+=('library_depends')
+# autodep_functions+=('library_depends')
 
 library_depends() {
 	if check_option "autodeps" "y"; then
